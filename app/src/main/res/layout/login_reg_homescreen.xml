@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/LoginNavButton"
+        android:layout_width="188dip"
+        android:layout_height="100dip"
+        android:text="B"
+        android:layout_centerInParent="true"
+        android:textSize="25sp" android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/RegisterNavButton"
+        android:layout_width="188dip"
+        android:layout_height="100dip"
+        android:text="A"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/LoginNavButton"
+        android:layout_marginBottom="30dip"
+        android:textSize="25sp" android:textStyle="bold" />
+
+</RelativeLayout>

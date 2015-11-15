@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/username_label"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#372c24"
+        android:text="@string/username"/>
+    <EditText
+        android:id="@+id/username_edit"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/username_label"
+        android:singleLine="true"/>
+
+    <TextView
+        android:id="@+id/password_label"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/username_edit"
+        android:textColor="#372c24"
+        android:text="@string/password"/>
+    <EditText
+        android:id="@+id/password_edit"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/password_label"
+        android:singleLine="true"/>
+    <Button
+        android:id="@+id/RegisterButton"
+        android:layout_width="35dip"
+        android:layout_height="20dip"
+        android:text="@string/home_reg_button"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/password_edit"
+        android:textSize="15sp" android:textStyle="bold" />
+</RelativeLayout>

@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">CarPool</string>
+    <string name="home_login_button">Login</string>
+    <string name="home_reg_button">Register</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login_success">Login successful</string>
+    <string name="login_fail">Login unsuccessful</string>
+    <string name="register_success">Register successful</string>
+    <string name="register_fail">Register unsuccessful</string>
+</resources>
