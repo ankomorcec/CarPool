@@ -10,4 +10,12 @@
         android:text="@string/add_travel"
         android:layout_alignParentTop="true"
         android:textSize="15sp" android:textStyle="bold" />
+
+    <ListView
+        android:id="@+id/travel_list"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/AddTravelButton"
+        >
+    </ListView>
 </RelativeLayout>

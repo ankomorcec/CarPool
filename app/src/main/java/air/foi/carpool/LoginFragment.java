@@ -2,7 +2,9 @@ package air.foi.carpool;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +33,10 @@ public class LoginFragment extends Fragment {
                 String password = ((TextView) getActivity().findViewById(R.id.password_edit)).getText().toString();
                 if(!(username.equals("") && password.equals("")) && User.validateUser(username, password)){
                     Toast.makeText(getActivity(), R.string.login_success, Toast.LENGTH_SHORT).show();
+
+                    SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+                    SharedPreferences.Editor editor = settings.edit();
+                    editor.putString("username", username);
 
                     ViewTravels vt = new ViewTravels();
                     FragmentTransaction fm = getActivity().getFragmentManager().beginTransaction();

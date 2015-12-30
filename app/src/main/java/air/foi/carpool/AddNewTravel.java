@@ -2,7 +2,9 @@ package air.foi.carpool;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,8 +35,13 @@ public class AddNewTravel extends Fragment {
                 String startPoint = ((TextView) getActivity().findViewById(R.id.starting_point_edit)).getText().toString();
                 String endPoint = ((TextView) getActivity().findViewById(R.id.end_point_edit)).getText().toString();
                 String departTime = ((TextView) getActivity().findViewById(R.id.depart_time_edit)).getText().toString();
-                if (!(startPoint.equals("") && endPoint.equals(""))) {
-                    Travel travel = new Travel(startPoint, endPoint, departTime);
+
+                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+                String username = settings.getString("username", null);
+
+                if (!(startPoint.equals("") && endPoint.equals("") && username.equals(null))) {
+
+                    Travel travel = new Travel(startPoint, endPoint, departTime, username);
                     travel.save();
 
                     ViewTravels vt = new ViewTravels();
