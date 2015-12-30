@@ -41,7 +41,6 @@ public class Travel extends Model {
                 .orderBy("start_point ASC")
                 .execute();
     }
-
     public String getStartPoint() {
         return startPoint;
     }
@@ -53,4 +52,5 @@ public class Travel extends Model {
     public String getStartTime() {
         return startTime;
     }
+
 }
