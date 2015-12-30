@@ -53,4 +53,7 @@ public class Travel extends Model {
         return startTime;
     }
 
+    public String getUser() {
+        return user;
+    }
 }

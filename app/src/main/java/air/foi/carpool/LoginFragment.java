@@ -37,6 +37,7 @@ public class LoginFragment extends Fragment {
                     SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
                     SharedPreferences.Editor editor = settings.edit();
                     editor.putString("username", username);
+                    editor.commit();
 
                     ViewTravels vt = new ViewTravels();
                     FragmentTransaction fm = getActivity().getFragmentManager().beginTransaction();

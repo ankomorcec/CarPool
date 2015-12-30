@@ -40,16 +40,10 @@ public class TravelDetailsFragment extends Fragment {
         name.setText(t.getStartPoint() + " - " + t.getEndPoint());
 
         TextView description = ((TextView) getView().findViewById(R.id.travel_details_description));
-        description.setText(t.getStartTime());
+        description.setText("Creator: " + t.getUser());
 
-        /*SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-
-        TextView startDate = ((TextView) getView().findViewById(R.id.travek_details_start));
-        startDate.setText(sdf.format(t.getStartDate()));
-
-        TextView endDate = ((TextView) getView().findViewById(R.id.travel_details_end));
-        endDate.setText(" - " + sdf.format(t.getEndDate()));
-        */
+        TextView startDate = ((TextView) getView().findViewById(R.id.travel_details_start));
+        startDate.setText("Departure: " + t.getStartTime());
 
     }
 }
