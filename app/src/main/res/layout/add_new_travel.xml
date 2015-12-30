@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/starting_point"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#372c24"
+        android:text="@string/start_point"/>
+    <EditText
+        android:id="@+id/starting_point_edit"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/starting_point"
+        android:singleLine="true"/>
+
+    <TextView
+        android:id="@+id/end_point"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/starting_point_edit"
+        android:textColor="#372c24"
+        android:text="@string/end_point"/>
+    <EditText
+        android:id="@+id/end_point_edit"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/end_point"
+        android:singleLine="true"/>
+
+    <TextView
+        android:id="@+id/depart_time"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/end_point_edit"
+        android:textColor="#372c24"
+        android:text="@string/depart_time"/>
+    <EditText
+        android:id="@+id/depart_time_edit"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/depart_time"
+        android:singleLine="true"/>
+    <Button
+        android:id="@+id/add_new_travel_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_new_travel_button"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/depart_time_edit"
+        android:textSize="15sp" android:textStyle="bold" />
+</RelativeLayout>

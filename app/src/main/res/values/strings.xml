@@ -8,4 +8,9 @@
     <string name="login_fail">Login unsuccessful</string>
     <string name="register_success">Register successful</string>
     <string name="register_fail">Register unsuccessful</string>
+    <string name="add_travel">Add new travel</string>
+    <string name="start_point">Starting point</string>
+    <string name="end_point">Ending point</string>
+    <string name="depart_time">Departure time</string>
+    <string name="add_new_travel_button">Add new travel</string>
 </resources>
