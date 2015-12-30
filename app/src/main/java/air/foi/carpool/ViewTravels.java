@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import air.foi.db.Travel;
 
@@ -33,7 +34,9 @@ public class ViewTravels extends Fragment {
 
         ListView listView = (ListView) getView().findViewById(R.id.travel_list);
 
-        ArrayList<Travel> travels = Travel.getAll();
+        List<Travel> travelsList = Travel.getAll();
+        ArrayList<Travel> travels = new ArrayList<>(travelsList.size());
+        travels.addAll(travelsList);
 
         travelAdapter adapter = new travelAdapter(getActivity().getApplicationContext(), travels);
 

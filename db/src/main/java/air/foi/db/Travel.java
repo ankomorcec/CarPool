@@ -6,7 +6,7 @@ import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Select;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @Table(name = "Travel")
 public class Travel extends Model {
@@ -35,7 +35,7 @@ public class Travel extends Model {
         this.user = user;
     }
 
-    public static ArrayList<Travel> getAll() {
+    public static List<Travel> getAll() {
         return new Select()
                 .from(Travel.class)
                 .orderBy("start_point ASC")
