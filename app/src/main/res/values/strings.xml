@@ -14,6 +14,8 @@
     <string name="depart_time">Departure time</string>
     <string name="add_new_travel_button">Add new travel</string>
     <string name="reserve_travel">Reserve your spot</string>
+    <string name="unreserve_travel">Remove your reservation</string>
     <string name="list_type_button">List of travels</string>
     <string name="map_type_button">Map of travels</string>
+
 </resources>

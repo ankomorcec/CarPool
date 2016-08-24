@@ -28,6 +28,8 @@ public class AddNewTravel extends Fragment {
 
     String[] startPoints = {"",""};
     int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
+    Double start_lat = 0.00;
+    Double start_long = 0.00;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -56,6 +58,8 @@ public class AddNewTravel extends Fragment {
                 // TODO: Get info about the selected place.
                 Log.i("MJESTO", "Place: " + place.getName());//get place details here
                 startPoints[0] = place.getAddress().toString();
+                start_lat = place.getLatLng().latitude;
+                start_long = place.getLatLng().longitude;
 
             }
 
@@ -115,10 +119,10 @@ public class AddNewTravel extends Fragment {
 
                 if (!(startPoint.equals("") && endPoint.equals("") && username.equals(null))) {
 
-                    Travel travel = new Travel(startPoint, endPoint, departTime, username);
+                    Travel travel = new Travel(startPoint, endPoint, departTime, username, start_lat, start_long);
                     travel.save();
 
-                    ViewTravels vt = new ViewTravels();
+                    choose_listing_type vt = new choose_listing_type();
                     FragmentTransaction fm = getActivity().getFragmentManager().beginTransaction();
                     fm.replace(R.id.fragment_container, vt);
                     fm.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
@@ -129,5 +133,19 @@ public class AddNewTravel extends Fragment {
                 }
             }
         });
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        PlaceAutocompleteFragment autocompleteFragmentTo = (PlaceAutocompleteFragment) getFragmentManager()
+                .findFragmentById(R.id.end_point_edit);
+        if (autocompleteFragmentTo != null)
+            getFragmentManager().beginTransaction().remove(autocompleteFragmentTo).commit();
+
+        PlaceAutocompleteFragment autocompleteFragmentFrom = (PlaceAutocompleteFragment) getFragmentManager()
+                .findFragmentById(R.id.starting_point_edit);
+        if (autocompleteFragmentFrom != null)
+            getFragmentManager().beginTransaction().remove(autocompleteFragmentFrom).commit();
     }
 }

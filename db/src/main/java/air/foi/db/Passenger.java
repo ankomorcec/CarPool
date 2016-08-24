@@ -2,6 +2,7 @@ package air.foi.db;
 
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
+import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
 
 import java.util.ArrayList;
@@ -44,9 +45,19 @@ public class Passenger extends Model {
             }
         }
         else{
-                Passenger pass=new Passenger(user_id, travel_id);
-                pass.save();
-                return "Passenger booked!";
+            Passenger pass=new Passenger(user_id, travel_id);
+            pass.save();
+            return "Passenger booked!";
+        }
+    }
+
+    public static String removePassenger(String user_id, String travel_id){
+        List<Passenger> existsCheck=new Select().from(Passenger.class).where("travel_id = '" + travel_id + "' AND user_id = '" + user_id + "'").execute();
+        if(!existsCheck.isEmpty()){
+            new Delete().from(Passenger.class).where("travel_id = '" + travel_id + "' AND user_id = '" + user_id + "'").execute();
+            return "Passenger reservation removed!";
+        }else{
+            return "Passenger doesn't have reservation";
         }
     }
 

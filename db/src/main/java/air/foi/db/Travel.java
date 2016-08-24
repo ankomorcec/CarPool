@@ -23,16 +23,24 @@ public class Travel extends Model {
     @Column(name = "user")
     public String user;
 
+    @Column(name = "start_lat")
+    public Double start_lat;
+
+    @Column(name = "start_long")
+    public Double start_long;
+
     public Travel(){
         super();
     }
 
-    public Travel(String startPoint, String endPoint, String startTime, String user) {
+    public Travel(String startPoint, String endPoint, String startTime, String user, Double start_lat, Double start_long) {
         super();
         this.startPoint = startPoint;
         this.endPoint = endPoint;
         this.startTime = startTime;
         this.user = user;
+        this.start_lat = start_lat;
+        this.start_long = start_long;
     }
 
     public static List<Travel> getAll() {
@@ -56,5 +64,11 @@ public class Travel extends Model {
 
     public String getUser() {
         return user;
+    }
+    public Double getStart_lat() {
+        return start_lat;
+    }
+    public Double getStart_long() {
+        return start_long;
     }
 }

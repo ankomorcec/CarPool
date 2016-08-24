@@ -39,12 +39,17 @@
             />
 
     </LinearLayout>
-
+    <TextView
+        android:id="@+id/travel_passengers_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Passengers:"
+        />
     <ListView
         android:id="@+id/pass_list"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/AddTravelButton"
         >
     </ListView>
 
@@ -53,6 +58,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/reserve_travel"
+        android:layout_alignParentTop="true"
+        android:textSize="15sp" android:textStyle="bold" />
+    <Button
+        android:id="@+id/RemoveTravelButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Remove your reservation"
         android:layout_alignParentTop="true"
         android:textSize="15sp" android:textStyle="bold" />
 

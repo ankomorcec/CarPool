@@ -87,6 +87,17 @@ public class TravelDetailsFragment extends Fragment {
                 Toast.makeText(getActivity(), Passenger.addPassenger(currentUserId, t.getId().toString()), Toast.LENGTH_SHORT).show();
             }
         });
+        Button removeTravel = (Button) getView().findViewById(R.id.RemoveTravelButton);
+        removeTravel.setText(R.string.unreserve_travel);
+        removeTravel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+                String currentUser=settings.getString("username", null);
+                String currentUserId = settings.getString("user_id", null);
+                Toast.makeText(getActivity(), Passenger.removePassenger(currentUserId, t.getId().toString()), Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 }

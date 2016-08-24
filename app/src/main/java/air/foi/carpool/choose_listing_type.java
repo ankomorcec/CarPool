@@ -41,15 +41,12 @@ public class choose_listing_type extends Fragment {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*
-                MapFragment rf = new MapFragment();
-
+                MapFragment mf = new MapFragment();
                 FragmentTransaction fm = getActivity().getFragmentManager().beginTransaction();
-                fm.replace(R.id.fragment_container, rf);
+                fm.replace(R.id.fragment_container, mf);
                 fm.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 fm.addToBackStack("chooseType");
                 fm.commit();
-                */
             }
         });
 
