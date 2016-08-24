@@ -41,6 +41,7 @@ public class Travel extends Model {
                 .orderBy("start_point ASC")
                 .execute();
     }
+
     public String getStartPoint() {
         return startPoint;
     }

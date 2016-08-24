@@ -31,7 +31,7 @@ public class travelAdapter extends ArrayAdapter<Travel> {
         TextView travelVal = (TextView) convertView.findViewById(R.id.travelValue);
         TextView travelId = (TextView) convertView.findViewById(R.id.recordId);
 
-        travelVal.setText(travel.startPoint+" --> "+travel.endPoint + " ("+travel.startTime+")");
+        travelVal.setText(travel.startPoint+"\n-> "+travel.endPoint + " ("+travel.startTime+")");
         travelId.setText(travel.getId().toString());
 
         return convertView;

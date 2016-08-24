@@ -40,4 +40,20 @@
 
     </LinearLayout>
 
+    <ListView
+        android:id="@+id/pass_list"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/AddTravelButton"
+        >
+    </ListView>
+
+    <Button
+        android:id="@+id/ReserveTravelButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/reserve_travel"
+        android:layout_alignParentTop="true"
+        android:textSize="15sp" android:textStyle="bold" />
+
 </LinearLayout>

@@ -39,7 +39,11 @@ public class LoginFragment extends Fragment {
                     editor.putString("username", username);
                     editor.commit();
 
-                    ViewTravels vt = new ViewTravels();
+                    String currentUser=User.getUserId(username);
+                    editor.putString("user_id", currentUser);
+                    editor.commit();
+
+                    choose_listing_type vt = new choose_listing_type();
                     FragmentTransaction fm = getActivity().getFragmentManager().beginTransaction();
                     fm.replace(R.id.fragment_container, vt);
                     fm.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);

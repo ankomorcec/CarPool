@@ -27,6 +27,16 @@ public class User extends Model {
         this.password = password;
     }
 
+    public static String getUserId(String username){
+        List<User> user=new Select().from(User.class).where("username = '" + username + "'").execute();
+        if(!user.isEmpty()){
+            return user.get(0).getId().toString();
+        }
+        else{
+            return null;
+        }
+    }
+
     public static Boolean validateUser(String username, String password){
         List<User> user=new Select().from(User.class).where("username = '" + username + "' AND password = '" + password + "'").execute();
         if (!user.isEmpty()){
