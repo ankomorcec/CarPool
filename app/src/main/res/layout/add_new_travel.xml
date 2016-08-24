@@ -9,13 +9,13 @@
         android:layout_height="wrap_content"
         android:textColor="#372c24"
         android:text="@string/start_point"/>
-    <EditText
+    <fragment
         android:id="@+id/starting_point_edit"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        class="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
         android:layout_below="@+id/starting_point"
-        android:singleLine="true"/>
-
+        />
     <TextView
         android:id="@+id/end_point"
         android:layout_width="fill_parent"
@@ -23,13 +23,13 @@
         android:layout_below="@+id/starting_point_edit"
         android:textColor="#372c24"
         android:text="@string/end_point"/>
-    <EditText
+    <fragment
         android:id="@+id/end_point_edit"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/end_point"
-        android:singleLine="true"/>
-
+        class="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
+        />
     <TextView
         android:id="@+id/depart_time"
         android:layout_width="fill_parent"

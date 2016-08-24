@@ -10,6 +10,11 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
+    }
+    dexOptions {
+        preDexLibraries = false
+        javaMaxHeapSize "4g"
     }
     buildTypes {
         release {
@@ -23,5 +28,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.1.1'
-    compile project (':db')
+    compile project(':db')
+    compile 'com.google.android.gms:play-services-places:9.4.0'
+    compile 'com.google.android.gms:play-services-maps:9.4.0'
 }
