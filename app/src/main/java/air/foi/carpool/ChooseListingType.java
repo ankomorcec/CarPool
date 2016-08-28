@@ -24,7 +24,7 @@ public class ChooseListingType extends Fragment {
 
     @OnClick(R.id.ListNavButton)
     public void loginClick() {
-        ViewTravels lf = new ViewTravels();
+        TabbedTravelDetFragment lf = new TabbedTravelDetFragment();
 
         FragmentTransaction fm = getActivity().getFragmentManager().beginTransaction();
         fm.replace(R.id.fragment_container, lf);
