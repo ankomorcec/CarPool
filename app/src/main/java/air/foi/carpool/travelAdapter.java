@@ -25,6 +25,8 @@ public class TravelAdapter extends ArrayAdapter<Travel> {
     @BindView(R.id.travelValue) TextView travelVal;
     @BindView(R.id.recordId) TextView travelId;
 
+    public boolean boolUsers = false;
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -35,9 +37,17 @@ public class TravelAdapter extends ArrayAdapter<Travel> {
             ButterKnife.bind(this,convertView);
         }
 
-        travelVal.setText(travel.startPoint+"\n-> "+travel.endPoint + " ("+travel.startTime+")");
-        travelId.setText(travel.getId().toString());
-
+        if (boolUsers)
+            travelVal.setText(travel.user);
+        else {
+            travelVal.setText(travel.startPoint + "\n-> " + travel.endPoint + " (" + travel.startTime + ")");
+            travelId.setText(travel.getId().toString());
+        }
         return convertView;
     }
+
+    public void setUsers() {
+        boolUsers = true;
+    }
+
 }

@@ -63,6 +63,21 @@ public class Travel extends Model {
                 .execute();
     }
 
+    public static List<Travel> getUsers() {
+        return new Select("user").distinct()
+                .from(Travel.class)
+                .orderBy("user ASC")
+                .execute();
+    }
+
+    public static List<Travel> getTravelsByUser(String user) {
+        return new Select()
+                .from(Travel.class)
+                .where("user = ?", user)
+                .orderBy("start_point ASC")
+                .execute();
+    }
+
     public String getStartPoint() {
         return startPoint;
     }
