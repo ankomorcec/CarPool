@@ -25,7 +25,6 @@ import butterknife.OnItemClick;
  */
 public class ViewTravels extends Fragment {
     @BindView(R.id.travel_list) ListView listView;
-    //@BindView(R.id.recordId) TextView recIdView;
     @BindView(R.id.AddTravelButton) Button addTravel;
 
     @OnItemClick(R.id.travel_list)

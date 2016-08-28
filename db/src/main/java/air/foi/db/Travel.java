@@ -78,6 +78,16 @@ public class Travel extends Model {
                 .execute();
     }
 
+    public static float[] getStatTravelData(String username){
+        float[] floatHelper = {0,0};
+        List<Travel> travels=new Select().from(Travel.class).where("user = '" + username + "'").execute();
+        for (Travel trvl : travels) {
+            floatHelper[0]++;
+            floatHelper[1] += trvl.distance;
+        }
+        return floatHelper;
+    }
+
     public String getStartPoint() {
         return startPoint;
     }

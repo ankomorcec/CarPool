@@ -70,4 +70,15 @@ public class Passenger extends Model {
         }
         return pass_names;
     }
+
+    public static float[] getStatTravelData(String userid){
+        float[] floatHelper = {0,0};
+        List<Passenger> passengers=new Select().from(Passenger.class).where("user_id = '" + userid + "'").execute();
+        for (Passenger passng : passengers) {
+            floatHelper[0]++;
+            Travel travel = new Select().from(Travel.class).where("Id == ?", passng.travel_id).executeSingle();
+            floatHelper[1] += travel.distance;
+        }
+        return floatHelper;
+    }
 }

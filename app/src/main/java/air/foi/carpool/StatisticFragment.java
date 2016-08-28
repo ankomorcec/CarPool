@@ -1,7 +1,9 @@
 package air.foi.carpool;
 
 import android.app.Fragment;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +27,8 @@ import com.github.mikephil.charting.utils.ViewPortHandler;
 import java.util.ArrayList;
 import java.util.List;
 
+import air.foi.db.Passenger;
+import air.foi.db.Travel;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -33,6 +37,9 @@ import butterknife.ButterKnife;
  */
 public class StatisticFragment extends Fragment{
     @BindView(R.id.chart) HorizontalBarChart chart;
+
+    float [] floatHelperPsngr = {0,0};
+    float [] floatHelperTrvl = {0,0};
 
 
     @Override
@@ -48,8 +55,9 @@ public class StatisticFragment extends Fragment{
         List<IBarDataSet> dataSets = new ArrayList<IBarDataSet>(); // Lista data Setova
         List<BarEntry> entries1 = new ArrayList<BarEntry>();
         List<BarEntry> entries2 = new ArrayList<BarEntry>();
-        entries1.add(new BarEntry(2,780));
-        entries2.add(new BarEntry(10, 1200));
+        getStatData();
+        entries1.add(new BarEntry(floatHelperPsngr[0],floatHelperPsngr[1]));
+        entries2.add(new BarEntry(floatHelperTrvl[0], floatHelperTrvl[1]));
         BarDataSet dataSet1 = new BarDataSet(entries1,"Riding Along");
         BarDataSet dataSet2 = new BarDataSet(entries2,"Driving");
         dataSet2.setColor(R.color.redChart);
@@ -80,5 +88,13 @@ public class StatisticFragment extends Fragment{
         public int getDecimalDigits() {
             return 0;
         }
+    }
+
+    public void getStatData(){
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+        String currentUser=settings.getString("username", null);
+        String currentUserId = settings.getString("user_id", null);
+        floatHelperPsngr = Passenger.getStatTravelData(currentUserId);
+        floatHelperTrvl = Travel.getStatTravelData(currentUser);
     }
 }
