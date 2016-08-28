@@ -5,19 +5,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import air.foi.db.Travel;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by Kiwi on 12/30/2015.
  */
-public class travelAdapter extends ArrayAdapter<Travel> {
-    public travelAdapter(Context context, ArrayList<Travel> users) {
+public class TravelAdapter extends ArrayAdapter<Travel> {
+    public TravelAdapter(Context context, ArrayList<Travel> users) {
         super(context, 0, users);
     }
+
+    @BindView(R.id.travelValue) TextView travelVal;
+    @BindView(R.id.recordId) TextView travelId;
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -26,10 +32,8 @@ public class travelAdapter extends ArrayAdapter<Travel> {
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item_layout, parent, false);
+            ButterKnife.bind(this,convertView);
         }
-
-        TextView travelVal = (TextView) convertView.findViewById(R.id.travelValue);
-        TextView travelId = (TextView) convertView.findViewById(R.id.recordId);
 
         travelVal.setText(travel.startPoint+"\n-> "+travel.endPoint + " ("+travel.startTime+")");
         travelId.setText(travel.getId().toString());

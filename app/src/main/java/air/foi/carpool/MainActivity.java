@@ -6,11 +6,15 @@ import android.os.Bundle;
 
 import com.activeandroid.ActiveAndroid;
 
+import butterknife.ButterKnife;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        ButterKnife.bind(this);
         ActiveAndroid.initialize(getApplication());
         setContentView(R.layout.activity_main);
 

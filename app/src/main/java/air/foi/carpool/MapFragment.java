@@ -21,34 +21,36 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.List;
 
 import air.foi.db.Travel;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Kiwi on 22.8.2016..
  */
 public class MapFragment extends Fragment {
+    @BindView(R.id.AddTravelButtonMap) Button addTravel;
+    @BindView(R.id.mapView) MapView mMapView;
 
-    MapView mMapView;
     private GoogleMap googleMap;
+
+    @OnClick(R.id.AddTravelButtonMap)
+    public void clickMapPointer() {
+        AddNewTravel vt = new AddNewTravel();
+        FragmentTransaction fm = getActivity().getFragmentManager().beginTransaction();
+        fm.replace(R.id.fragment_container, vt);
+        fm.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        fm.addToBackStack("viewTravelsFragment");
+        fm.commit();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.gmap_layout, container, false);
+        ButterKnife.bind(this, rootView);
 
-        Button addTravel = (Button) rootView.findViewById(R.id.AddTravelButtonMap);
         addTravel.setText(R.string.add_travel);
-        addTravel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AddNewTravel vt = new AddNewTravel();
-                FragmentTransaction fm = getActivity().getFragmentManager().beginTransaction();
-                fm.replace(R.id.fragment_container, vt);
-                fm.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                fm.addToBackStack("viewTravelsFragment");
-                fm.commit();
-            }
-        });
 
-        mMapView = (MapView) rootView.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
 
         mMapView.onResume(); // needed to get the map to display immediately

@@ -3,6 +3,7 @@ package air.foi.carpool;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.SharedPreferences;
+import android.location.Location;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -20,20 +21,63 @@ import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 
 import air.foi.db.Travel;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Kiwi on 12/30/2015.
  */
 public class AddNewTravel extends Fragment {
+    @BindView(R.id.add_new_travel_button) Button addNewTravelButton;
 
     String[] startPoints = {"",""};
     int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
     Double start_lat = 0.00;
     Double start_long = 0.00;
+    Double end_lat = 0.00;
+    Double end_long = 0.00;
+
+    @OnClick(R.id.add_new_travel_button)
+    public void clickAddnew(){
+        String startPoint = "";
+        if (startPoints[0] != null)
+            startPoint = startPoints[0];
+
+        String endPoint = "";
+        if (startPoints[1] != null)
+            endPoint = startPoints[1];
+        String departTime = ((TextView) getActivity().findViewById(R.id.depart_time_edit)).getText().toString();
+
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+        String username = settings.getString("username", null);
+
+        if (!(startPoint.equals("") && endPoint.equals("") && username.equals(null))) {
+
+            float[] results = new float[1];
+
+            Location.distanceBetween(start_lat,start_long,end_lat,end_long,results);
+            Log.i("DISTANCE", "Udaljeno: " + results[0]);//get place details here
+
+            Travel travel = new Travel(startPoint, endPoint, departTime, username, start_lat, start_long,end_lat,end_long,results[0]);
+            travel.save();
+
+            ChooseListingType vt = new ChooseListingType();
+            FragmentTransaction fm = getActivity().getFragmentManager().beginTransaction();
+            fm.replace(R.id.fragment_container, vt);
+            fm.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+            fm.addToBackStack("addNewTravel");
+            fm.commit();
+        } else {
+            Toast.makeText(getActivity(), R.string.login_fail, Toast.LENGTH_SHORT).show();
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.add_new_travel, container, false);
+        View view = inflater.inflate(R.layout.add_new_travel, container, false);
+        ButterKnife.bind(this,view);
+        return view;
     }
 
     @Override
@@ -87,6 +131,8 @@ public class AddNewTravel extends Fragment {
                 // TODO: Get info about the selected place.
                 Log.i("MJESTO", "Place: " + place.getName());//get place details here
                 startPoints[1] = place.getAddress().toString();
+                end_lat = place.getLatLng().latitude;
+                end_long = place.getLatLng().longitude;
 
             }
 
@@ -99,40 +145,7 @@ public class AddNewTravel extends Fragment {
 
         // autocomplete places - END
 
-        Button addNewTravelButton = (Button) getView().findViewById(R.id.add_new_travel_button);
         addNewTravelButton.setText(R.string.add_new_travel_button);
-        addNewTravelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                String startPoint = "";
-                if (startPoints[0] != null)
-                    startPoint = startPoints[0];
-
-                String endPoint = "";
-                if (startPoints[1] != null)
-                    endPoint = startPoints[1];
-                String departTime = ((TextView) getActivity().findViewById(R.id.depart_time_edit)).getText().toString();
-
-                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
-                String username = settings.getString("username", null);
-
-                if (!(startPoint.equals("") && endPoint.equals("") && username.equals(null))) {
-
-                    Travel travel = new Travel(startPoint, endPoint, departTime, username, start_lat, start_long);
-                    travel.save();
-
-                    choose_listing_type vt = new choose_listing_type();
-                    FragmentTransaction fm = getActivity().getFragmentManager().beginTransaction();
-                    fm.replace(R.id.fragment_container, vt);
-                    fm.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                    fm.addToBackStack("addNewTravel");
-                    fm.commit();
-                } else {
-                    Toast.makeText(getActivity(), R.string.login_fail, Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
     }
 
     @Override

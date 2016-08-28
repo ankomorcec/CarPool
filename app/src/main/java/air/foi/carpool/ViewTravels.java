@@ -15,15 +15,50 @@ import java.util.ArrayList;
 import java.util.List;
 
 import air.foi.db.Travel;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.OnItemClick;
 
 /**
  * Created by Kiwi on 11/15/2015.
  */
 public class ViewTravels extends Fragment {
+    @BindView(R.id.travel_list) ListView listView;
+    //@BindView(R.id.recordId) TextView recIdView;
+    @BindView(R.id.AddTravelButton) Button addTravel;
+
+    @OnItemClick(R.id.travel_list)
+    public void clickTravelList(View view){
+        String recId = ((TextView)view.findViewById(R.id.recordId)).getText().toString();
+
+        Bundle args = new Bundle();
+        args.putLong("id", (Long) Long.parseLong(recId));
+
+        TravelDetailsFragment tdf = new TravelDetailsFragment();
+        tdf.setArguments(args);
+
+        FragmentTransaction fm = getActivity().getFragmentManager().beginTransaction();
+        fm.replace(R.id.fragment_container, tdf);
+        fm.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        fm.addToBackStack("viewTravelsFragment");
+        fm.commit();
+    }
+
+    @OnClick(R.id.AddTravelButton)
+    public void clickAddTravel(){
+        AddNewTravel vt = new AddNewTravel();
+        FragmentTransaction fm = getActivity().getFragmentManager().beginTransaction();
+        fm.replace(R.id.fragment_container, vt);
+        fm.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        fm.addToBackStack("viewTravelsFragment");
+        fm.commit();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.view_travels, container, false);
+        ButterKnife.bind(this,rootView);
 
         return rootView;
     }
@@ -32,51 +67,15 @@ public class ViewTravels extends Fragment {
     public void onStart() {
         super.onStart();
 
-        ListView listView = (ListView) getView().findViewById(R.id.travel_list);
-
         List<Travel> travelsList = Travel.getAll();
         ArrayList<Travel> travels = new ArrayList<>(travelsList.size());
         travels.addAll(travelsList);
 
-        travelAdapter adapter = new travelAdapter(getActivity().getApplicationContext(), travels);
+        TravelAdapter adapter = new TravelAdapter(getActivity().getApplicationContext(), travels);
 
         listView.setAdapter(adapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-                                            @Override
-                                            public void onItemClick(AdapterView<?> parent, View view,
-                                                                    int position, long id) {
-
-                                                String recId = ((TextView)view.findViewById(R.id.recordId)).getText().toString();
-
-                                                Bundle args = new Bundle();
-                                                args.putLong("id", (Long) Long.parseLong(recId));
-
-                                                TravelDetailsFragment tdf = new TravelDetailsFragment();
-                                                tdf.setArguments(args);
-
-                                                FragmentTransaction fm = getActivity().getFragmentManager().beginTransaction();
-                                                fm.replace(R.id.fragment_container, tdf);
-                                                fm.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                                                fm.addToBackStack("viewTravelsFragment");
-                                                fm.commit();
-                                            }
-                                        }
-        );
-
-        Button addTravel = (Button) getView().findViewById(R.id.AddTravelButton);
         addTravel.setText(R.string.add_travel);
-        addTravel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                    AddNewTravel vt = new AddNewTravel();
-                    FragmentTransaction fm = getActivity().getFragmentManager().beginTransaction();
-                    fm.replace(R.id.fragment_container, vt);
-                    fm.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                    fm.addToBackStack("viewTravelsFragment");
-                    fm.commit();
-            }
-        });
+
     }
 }

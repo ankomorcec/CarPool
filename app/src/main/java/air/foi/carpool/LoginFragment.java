@@ -13,47 +13,53 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import air.foi.db.User;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class LoginFragment extends Fragment {
+    @BindView(R.id.LoginButton) Button login;
+    @BindView(R.id.username_edit) TextView userNameTxtView;
+    @BindView(R.id.password_edit) TextView passTxtView;
+
+    @OnClick(R.id.LoginButton)
+    public void loginClick() {
+        String username = userNameTxtView.getText().toString();
+        String password = passTxtView.getText().toString();
+        if(!(username.equals("") && password.equals("")) && User.validateUser(username, password)){
+            Toast.makeText(getActivity(), R.string.login_success, Toast.LENGTH_SHORT).show();
+
+            SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putString("username", username);
+            editor.commit();
+
+            String currentUser=User.getUserId(username);
+            editor.putString("user_id", currentUser);
+            editor.commit();
+
+            ChooseListingType vt = new ChooseListingType();
+            FragmentTransaction fm = getActivity().getFragmentManager().beginTransaction();
+            fm.replace(R.id.fragment_container, vt);
+            fm.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+            fm.addToBackStack("registerFragment");
+            fm.commit();
+        }
+        else{
+            Toast.makeText(getActivity(), R.string.login_fail, Toast.LENGTH_SHORT).show();
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.login_fragment, container, false);
+        View view =  inflater.inflate(R.layout.login_fragment, container, false);
+        ButterKnife.bind(this, view);
+        return view;
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        Button login = (Button) getView().findViewById(R.id.LoginButton);
         login.setText(R.string.home_login_button);
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String username = ((TextView) getActivity().findViewById(R.id.username_edit)).getText().toString();
-                String password = ((TextView) getActivity().findViewById(R.id.password_edit)).getText().toString();
-                if(!(username.equals("") && password.equals("")) && User.validateUser(username, password)){
-                    Toast.makeText(getActivity(), R.string.login_success, Toast.LENGTH_SHORT).show();
-
-                    SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
-                    SharedPreferences.Editor editor = settings.edit();
-                    editor.putString("username", username);
-                    editor.commit();
-
-                    String currentUser=User.getUserId(username);
-                    editor.putString("user_id", currentUser);
-                    editor.commit();
-
-                    choose_listing_type vt = new choose_listing_type();
-                    FragmentTransaction fm = getActivity().getFragmentManager().beginTransaction();
-                    fm.replace(R.id.fragment_container, vt);
-                    fm.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                    fm.addToBackStack("registerFragment");
-                    fm.commit();
-                    }
-                else{
-                    Toast.makeText(getActivity(), R.string.login_fail, Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
     }
 }

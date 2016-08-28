@@ -29,11 +29,21 @@ public class Travel extends Model {
     @Column(name = "start_long")
     public Double start_long;
 
+    @Column(name = "end_lat")
+    public Double end_lat;
+
+    @Column(name = "end_long")
+    public Double end_long;
+
+    @Column(name = "distance")
+    public Float distance;
+
     public Travel(){
         super();
     }
 
-    public Travel(String startPoint, String endPoint, String startTime, String user, Double start_lat, Double start_long) {
+    public Travel(String startPoint, String endPoint, String startTime, String user, Double start_lat, Double start_long,
+                  Double end_lat, Double end_long, Float distance) {
         super();
         this.startPoint = startPoint;
         this.endPoint = endPoint;
@@ -41,6 +51,9 @@ public class Travel extends Model {
         this.user = user;
         this.start_lat = start_lat;
         this.start_long = start_long;
+        this.end_lat = end_lat;
+        this.end_long = end_long;
+        this.distance = distance;
     }
 
     public static List<Travel> getAll() {
@@ -71,4 +84,11 @@ public class Travel extends Model {
     public Double getStart_long() {
         return start_long;
     }
+    public Double getEnd_lat() {
+        return end_lat;
+    }
+    public Double getEnd_long() {
+        return end_long;
+    }
+    public Float getDistance() { return distance; }
 }

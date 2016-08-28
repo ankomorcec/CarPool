@@ -23,14 +23,48 @@ import java.util.List;
 
 import air.foi.db.Travel;
 import air.foi.db.Passenger;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by ankomorcec on 30.12.2015..
  */
 public class TravelDetailsFragment extends Fragment {
+    @BindView(R.id.travel_details_name) TextView name;
+    @BindView(R.id.travel_details_description) TextView description;
+    @BindView(R.id.travel_details_start) TextView startDate;
+    @BindView(R.id.pass_list) ListView listView;
+    @BindView(R.id.ReserveTravelButton) Button reserveTravel;
+    @BindView(R.id.RemoveTravelButton) Button removeTravel;
+
+    Bundle data;
+    long id;
+    Travel t;
+
+    @OnClick(R.id.ReserveTravelButton)
+    public void reserveClick() {
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+        String currentUser=settings.getString("username", null);
+        String currentUserId = settings.getString("user_id", null);
+        Toast.makeText(getActivity(), Passenger.addPassenger(currentUserId, t.getId().toString()), Toast.LENGTH_SHORT).show();
+        getPassangers();
+    }
+
+    @OnClick(R.id.RemoveTravelButton)
+    public void removeClick() {
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+        String currentUser=settings.getString("username", null);
+        String currentUserId = settings.getString("user_id", null);
+        Toast.makeText(getActivity(), Passenger.removePassenger(currentUserId, t.getId().toString()), Toast.LENGTH_SHORT).show();
+        getPassangers();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.travel_details, container, false);
+        View view = inflater.inflate(R.layout.travel_details, container, false);
+        ButterKnife.bind(this,view);
+        return view;
     }
 
     @Override
@@ -38,23 +72,26 @@ public class TravelDetailsFragment extends Fragment {
         super.onStart();
 
         // get Bundle and extra data sent from caller activity
-        Bundle data = getArguments();
-        long id = data.getLong("id");
+        data = getArguments();
+        id = data.getLong("id");
+        t = new Select().from(Travel.class).where("Id == ?", id).executeSingle();
 
-        final Travel t = new Select().from(Travel.class).where("Id == ?", id).executeSingle();
-
-
-        TextView name = ((TextView) getView().findViewById(R.id.travel_details_name));
         name.setText(t.getStartPoint() + " - " + t.getEndPoint());
 
-        TextView description = ((TextView) getView().findViewById(R.id.travel_details_description));
         description.setText("Creator: " + t.getUser());
 
-        TextView startDate = ((TextView) getView().findViewById(R.id.travel_details_start));
         startDate.setText("Departure: " + t.getStartTime());
 
-         /*Get passengers*/
-        ListView listView = (ListView) getView().findViewById(R.id.pass_list);
+        getPassangers();
+
+        reserveTravel.setText(R.string.reserve_travel);
+
+        removeTravel.setText(R.string.unreserve_travel);
+
+    }
+
+    public void getPassangers(){
+                 /*Get passengers*/
 
         List<String> passList = Passenger.getTravelPassengers(t.getId().toString());
         ArrayList<String> passengers = new ArrayList<>(passList.size());
@@ -75,29 +112,5 @@ public class TravelDetailsFragment extends Fragment {
 
         listView.setAdapter(adapter);
         /*get passengers end*/
-
-        Button reserveTravel = (Button) getView().findViewById(R.id.ReserveTravelButton);
-        reserveTravel.setText(R.string.reserve_travel);
-        reserveTravel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
-                String currentUser=settings.getString("username", null);
-                String currentUserId = settings.getString("user_id", null);
-                Toast.makeText(getActivity(), Passenger.addPassenger(currentUserId, t.getId().toString()), Toast.LENGTH_SHORT).show();
-            }
-        });
-        Button removeTravel = (Button) getView().findViewById(R.id.RemoveTravelButton);
-        removeTravel.setText(R.string.unreserve_travel);
-        removeTravel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
-                String currentUser=settings.getString("username", null);
-                String currentUserId = settings.getString("user_id", null);
-                Toast.makeText(getActivity(), Passenger.removePassenger(currentUserId, t.getId().toString()), Toast.LENGTH_SHORT).show();
-            }
-        });
-
     }
 }

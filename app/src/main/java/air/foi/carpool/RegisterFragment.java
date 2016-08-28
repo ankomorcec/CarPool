@@ -11,42 +11,49 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import air.foi.db.User;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 public class RegisterFragment extends Fragment {
+    @BindView(R.id.RegisterButton) Button login;
+    @BindView(R.id.username_edit) TextView userNameTxtView;
+    @BindView(R.id.password_edit) TextView passTxtView;
+
+    @OnClick(R.id.RegisterButton)
+    public void loginClick() {
+        String username = userNameTxtView.getText().toString();
+        String password = passTxtView.getText().toString();
+        if(!(username.equals("") && password.equals(""))){
+            User user = new User(username, password);
+            user.save();
+
+            Toast.makeText(getActivity(), R.string.register_success, Toast.LENGTH_SHORT).show();
+
+            LoginFragment lf = new LoginFragment();
+            FragmentTransaction fm = getActivity().getFragmentManager().beginTransaction();
+            fm.replace(R.id.fragment_container, lf);
+            fm.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+            fm.addToBackStack("registerFragment");
+            fm.commit();
+        }
+        else{
+            Toast.makeText(getActivity(), R.string.register_fail, Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.register_fragment, container, false);
+        View view = inflater.inflate(R.layout.register_fragment, container, false);
+        ButterKnife.bind(this, view);
+        return view;
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        Button login = (Button) getView().findViewById(R.id.RegisterButton);
         login.setText(R.string.home_reg_button);
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String username = ((TextView) getActivity().findViewById(R.id.username_edit)).getText().toString();
-                String password = ((TextView) getActivity().findViewById(R.id.password_edit)).getText().toString();
-                if(!(username.equals("") && password.equals(""))){
-                    User user = new User(username, password);
-                    user.save();
-
-                    Toast.makeText(getActivity(), R.string.register_success, Toast.LENGTH_SHORT).show();
-
-                    LoginFragment lf = new LoginFragment();
-                    FragmentTransaction fm = getActivity().getFragmentManager().beginTransaction();
-                    fm.replace(R.id.fragment_container, lf);
-                    fm.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                    fm.addToBackStack("registerFragment");
-                    fm.commit();
-                }
-                else{
-                    Toast.makeText(getActivity(), R.string.register_fail, Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
     }
 }
