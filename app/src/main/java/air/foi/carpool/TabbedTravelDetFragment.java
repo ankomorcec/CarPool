@@ -1,6 +1,7 @@
 package air.foi.carpool;
 
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +12,7 @@ import butterknife.ButterKnife;
  * Created by antoniok on 28.8.2016..
  * Fragment kao poslužitelj tabulranog prikaza dva druga Fragmenta
  */
-public class TabbedTravelDetFragment extends Fragment {
+public class TabbedTravelDetFragment extends Fragment implements FragmentDataDisplay {
     private FragmentTabHost ftHost;
 
     public TabbedTravelDetFragment(){
@@ -34,5 +35,20 @@ public class TabbedTravelDetFragment extends Fragment {
                 TravelUserFragment.class, null);
 
         return rootView;
+    }
+
+    public Fragment newInstance(){
+        TabbedTravelDetFragment tabbedTrvlFrgmnt = new TabbedTravelDetFragment();
+        return tabbedTrvlFrgmnt;
+    }
+
+    @Override
+    public Fragment getFragment() {
+            return this;
+    }
+
+    @Override
+    public String getBtnCaption() {
+        return "List of travels";
     }
 }

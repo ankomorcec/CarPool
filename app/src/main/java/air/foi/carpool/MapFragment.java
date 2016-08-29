@@ -28,7 +28,7 @@ import butterknife.OnClick;
 /**
  * Created by Kiwi on 22.8.2016..
  */
-public class MapFragment extends Fragment {
+public class MapFragment extends Fragment implements FragmentDataDisplay{
     @BindView(R.id.AddTravelButtonMap) Button addTravel;
     @BindView(R.id.mapView) MapView mMapView;
 
@@ -124,5 +124,15 @@ public class MapFragment extends Fragment {
     public void onLowMemory() {
         super.onLowMemory();
         mMapView.onLowMemory();
+    }
+
+    @Override
+    public Fragment getFragment() {
+        return this;
+    }
+
+    @Override
+    public String getBtnCaption() {
+        return ("Map of travels");
     }
 }

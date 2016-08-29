@@ -6,11 +6,8 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.activeandroid.ActiveAndroid;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import butterknife.ButterKnife;
-import cz.msebera.android.httpclient.Header;
 
 public class MainActivity extends AppCompatActivity {
 
