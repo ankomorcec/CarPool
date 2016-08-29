@@ -71,8 +71,4 @@ public class ChooseListingType extends Fragment {
 
     }
 
-    public void setFragmentDisplay(ITravelDataViewer iTrvlDataViewer){
-
-    }
-
 }

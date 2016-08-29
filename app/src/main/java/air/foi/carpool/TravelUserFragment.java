@@ -21,6 +21,8 @@ import butterknife.OnItemClick;
 
 /**
  * Created by antoniok on 28.8.2016..
+ * Fragment prikazuje sve korisnike koji su kreirali putovanje
+ * U slučaju da korisnik preferira jednog prijevoznika
  */
 public class TravelUserFragment extends Fragment {
     @BindView(R.id.AddTravelButton) Button addTravel;

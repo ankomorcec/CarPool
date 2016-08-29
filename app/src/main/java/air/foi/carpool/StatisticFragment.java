@@ -34,6 +34,7 @@ import butterknife.ButterKnife;
 
 /**
  * Created by antoniok on 28.8.2016..
+ * Prikaz Statističkih podataka vožnje s drugima i prijevoza drugih
  */
 public class StatisticFragment extends Fragment{
     @BindView(R.id.chart) HorizontalBarChart chart;
@@ -77,6 +78,10 @@ public class StatisticFragment extends Fragment{
 
     }
 
+    /**
+     * Nova klasa formatiranja prikazanog oblika na osi grafa
+     */
+
     public class MyValueFormatter implements AxisValueFormatter {
 
         @Override
@@ -89,6 +94,12 @@ public class StatisticFragment extends Fragment{
             return 0;
         }
     }
+
+    /**
+     * Dohvat potrebnih podataka za prikaz grafa
+     * Dohvat iz tablice Passanger za podatke vožnje s drugima
+     * Dohvat iz tablice Travel za podatke vožnje drugih
+     */
 
     public void getStatData(){
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());

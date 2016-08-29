@@ -29,6 +29,8 @@ import butterknife.OnClick;
 
 /**
  * Created by ankomorcec on 30.12.2015..
+ * Prikaz detalja putovanja uz mogućnosti Rezerviranja putovanja
+ * i uklanjanja rezervacije
  */
 public class TravelDetailsFragment extends Fragment {
     @BindView(R.id.travel_details_name) TextView name;
@@ -90,6 +92,10 @@ public class TravelDetailsFragment extends Fragment {
 
     }
 
+    /**
+     * Dohvat putnika kao posebna funkcija
+     * zbog potrebe osvježivanja pregleda
+     */
     public void getPassangers(){
                  /*Get passengers*/
 

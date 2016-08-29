@@ -19,6 +19,7 @@ import butterknife.OnItemClick;
 
 /**
  * Created by antoniok on 28.8.2016..
+ * Fragment za prikaz svih putovanja od odabranog korisnika
  */
 public class TravelByUsersFragment extends Fragment {
     @BindView(R.id.travel_list_by_user) ListView listView;

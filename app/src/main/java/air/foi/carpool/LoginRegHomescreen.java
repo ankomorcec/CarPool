@@ -9,7 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import butterknife.BindString;
+import air.foi.ws.AsyncWS;
+import air.foi.ws.WebServiceParams;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -56,6 +57,8 @@ public class LoginRegHomescreen extends Fragment {
 
 
         register.setText(R.string.home_reg_button);
+
+        new AsyncWS().execute(new WebServiceParams());
 
 
     }

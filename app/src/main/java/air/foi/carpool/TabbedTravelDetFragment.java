@@ -9,6 +9,7 @@ import butterknife.ButterKnife;
 
 /**
  * Created by antoniok on 28.8.2016..
+ * Fragment kao poslužitelj tabulranog prikaza dva druga Fragmenta
  */
 public class TabbedTravelDetFragment extends Fragment {
     private FragmentTabHost ftHost;
